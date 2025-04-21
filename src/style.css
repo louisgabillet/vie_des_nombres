@@ -1,0 +1,47 @@
+:root {
+    --global-background-color: #020314;
+    --global-text-color: #fff;
+    
+    --global-max-width: 1024px;
+
+    --font-system: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    background-color: var(--global-background-color);
+    color: var(--global-text-color);
+    font-family: Quicksand;
+    overflow-x: hidden;
+}
+
+[data-headline] {
+    font-size: 2rem;
+    font-weight: 600;
+}
+[data-text] {
+    font-size: 1rem;
+    font-weight: 400;
+}
+[data-text] em {
+    font-family: Newsreader;
+}
+[data-link] {
+    color: var(--global-text-color);
+}
+[data-glass] {
+    --blur: 12px;
+
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(var(--blur));
+    border-radius: 16px;
+    -webkit-backdrop-filter: blur(var(--blur));
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
