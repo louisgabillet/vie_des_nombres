@@ -1,39 +1,22 @@
 <script lang="ts">
 import "../style.css";
-import Sky from "$lib/components/sky.svelte";
-import { onDestroy, onMount } from "svelte";
 import { browser } from "$app/environment";
-	import { afterNavigate } from "$app/navigation";
+import { onDestroy, onMount, setContext, type Snippet } from "svelte";
+import { afterNavigate } from "$app/navigation";
+import Sky from "$lib/components/sky.svelte";
+import Cart from "$lib/cart/class.svelte";
+import type { Cart as CartType } from "$lib/types";
 
-let { children } = $props();
+type Props = {
+    children: Snippet<[]>,
+    data: { 
+        cart: CartType; 
+    },
+}
 
-const globalLinks = [
-    {
-        id: '1',
-        name: 'menu',
-        href: '/'
-    },
-    {
-        id: '2',
-        name: 'thèmes',
-        href: '/themes'
-    },
-    {
-        id: '3',
-        name: 'contact',
-        href: '/contact'
-    },
-    {
-        id: '4',
-        name: 'tarifs',
-        href: '/pricing'
-    },
-    {
-        id: '5',
-        name: 'panier',
-        href: '/cart'
-    },
-];
+let { children, data }: Props = $props();
+
+const cart = new Cart(data.cart.id, data.cart.products);
 
 let scrollbar: HTMLDivElement | null = null; 
 
@@ -47,6 +30,7 @@ let scrollbarTrackHeight: number = 0;
 let scrollbarThumbHeight: number = $state(0);
 let scrollbarThumbTop: number = $state(0);
 
+setContext('cart', cart);
 
 onMount(() => {
     scrollbar = document.querySelector('.global-scrollbar');
@@ -101,11 +85,21 @@ const moveThumb = () => {
 <nav class="global-nav">
     <div class="global-nav__content" data-glass>
         <ul class="global-nav__list">
-            {#each globalLinks as { id, name, href } (id)}
-                <li>
-                    <a { href } class="global-nav__link" data-link>{ name }</a>
-                </li>    
-            {/each}
+            <li>
+                <a href="/" class="global-nav__link" data-link>menu</a>
+            </li>    
+            <li>
+                <a href="/themes" class="global-nav__link" data-link>thèmes</a>
+            </li>    
+            <li>
+                <a href="/contact" class="global-nav__link" data-link>contact</a>
+            </li>    
+            <li>
+                <a href="/pricing" class="global-nav__link" data-link>tarifs</a>
+            </li>    
+            <li>
+                <a href="/cart" class="global-nav__link" data-link>panier {cart.stats.quantity > 0 ? `(${ cart.stats.quantity })` : ''}</a>
+            </li>    
         </ul>
     </div>
 </nav>
