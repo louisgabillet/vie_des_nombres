@@ -1,12 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
 import type { Handle } from "@sveltejs/kit";
 
 export const handle: Handle = async ({ event, resolve }) => {
-    let cartId: string | undefined = event.cookies.get('cartId');
+    let cartId: string | undefined = event.cookies.get('cart_id');
 
     if (!cartId) {
-        cartId = uuidv4();
-        event.cookies.set('cartId', cartId, {
+        cartId = crypto.randomUUID();
+        event.cookies.set('cart_id', cartId, {
             path: '/',
             httpOnly: true,
             sameSite: 'lax',

@@ -5,7 +5,7 @@ import { onDestroy, onMount, setContext, type Snippet } from "svelte";
 import { afterNavigate } from "$app/navigation";
 import Sky from "$lib/components/sky.svelte";
 import Cart from "$lib/cart/class.svelte";
-import type { Cart as CartType } from "$lib/types";
+import type { Cart as CartType } from "$lib/cart/types";
 
 type Props = {
     children: Snippet<[]>,
@@ -83,22 +83,22 @@ const moveThumb = () => {
 </script>
 
 <nav class="global-nav">
-    <div class="global-nav__content" data-glass>
+    <div class="global-nav__content">
         <ul class="global-nav__list">
             <li>
-                <a href="/" class="global-nav__link" data-link>menu</a>
+                <a href="/" class="global-nav__link" data-link>Logo</a>
             </li>    
             <li>
-                <a href="/themes" class="global-nav__link" data-link>thèmes</a>
+                <a href="/themes" class="global-nav__link" data-link>Thèmes</a>
             </li>    
             <li>
-                <a href="/contact" class="global-nav__link" data-link>contact</a>
+                <a href="/about" class="global-nav__link" data-link>En Savoir Plus</a>
             </li>    
             <li>
-                <a href="/pricing" class="global-nav__link" data-link>tarifs</a>
+                <a href="/contact" class="global-nav__link" data-link>Contact</a>
             </li>    
             <li>
-                <a href="/cart" class="global-nav__link" data-link>panier {cart.stats.quantity > 0 ? `(${ cart.stats.quantity })` : ''}</a>
+                <a href="/cart" class="global-nav__link" data-link>Panier {cart.stats.quantity > 0 ? `(${ cart.stats.quantity })` : ''}</a>
             </li>    
         </ul>
     </div>
@@ -117,6 +117,11 @@ const moveThumb = () => {
 <div style="height: 200Vh;"></div>
 
 <style>
+.global-nav {
+    position: relative;
+    background-color: var(--global-bg-color);
+    z-index: 999;
+}
 .global-nav__content {
     width: 100%;
     max-width: var(--global-max-width);
@@ -135,7 +140,6 @@ const moveThumb = () => {
     user-select: none;
     list-style: none;
 }
-
 
 .global-scrollbar {
     width: 6px;

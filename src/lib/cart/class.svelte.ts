@@ -1,4 +1,4 @@
-import type { CartProduct, CartStats, Cart as CartType } from "$lib/types";
+import type { CartProduct, CartStats, Cart as CartType } from "./types";
 import { AsyncQueue } from "$lib/utils/async-queue";
 
 type SendResponse = {

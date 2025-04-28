@@ -1,4 +1,4 @@
-import type { Cart, CartProduct } from "$lib/types";
+import type { Cart, CartProduct } from "$lib/cart/types";
 
 const carts: Map<Cart['id'], Cart['products']> = new Map();
 
@@ -33,7 +33,7 @@ export const addToCart = (cartId: Cart['id'], product: CartProduct): Cart => {
 
     if (existing) {
         //existing.quantity += product.quantity;
-        existing.quantity += 1;
+        //existing.quantity += 1;
         return cart;
     }
 
@@ -67,4 +67,12 @@ export const decrementFromCart = (cartId: Cart['id'], product: CartProduct): Car
     }
 
     return removeFromCart(cartId, product.id);
+}
+
+export const createCartSnapshot = (cart: Cart) => {
+    return cart.products.map(p => ({
+        id: p.id,
+        quantity: p.quantity,
+        price: p.product.price,
+    }));
 }

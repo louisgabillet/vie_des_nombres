@@ -113,7 +113,7 @@ const resizeSky = () => {
 .global-sky {
     width: 100vw;
     height: 100vh;
-    background-color: #0B0C10;
+    background-color: var(--global-bg-color);
     position: fixed;
     inset: 0;
     z-index: -1;

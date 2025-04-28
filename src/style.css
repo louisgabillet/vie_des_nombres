@@ -1,39 +1,53 @@
 :root {
-    --global-background-color: #020314;
+    --global-bg-color: #0B0C10;
     --global-text-color: #fff;
+    --global-underline-color: #fff;
     
     --global-max-width: 1024px;
 
     --font-system: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-sans: Quicksand, var(--font-system);
+
+    --font-size-text-2xl: 30px;
+    --font-size-text-xl: 24px;
+    --font-size-text-l: 20px;
+    --font-size-text: 16px;
+    --font-size-text-s: 14px;
+    --font-size-text-xs: 12px;
+    --font-size-text-xxs: 10px;
 }
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-html {
-    /*scroll-behavior: smooth;*/
-}
 body {
+    height: 100%;
+    font-family: var(--font-sans);
+    background-color: var(--global-bg-color);
     color: var(--global-text-color);
-    font-family: Quicksand;
-    background-color: black;
     overflow-x: hidden;
 }
 
 [data-headline] {
-    font-size: 2rem;
+    font-size: var(--font-size-text-2xl);
     font-weight: 600;
 }
 [data-text] {
-    font-size: 1rem;
+    font-size: var(--font-size-text);
     font-weight: 400;
 }
-[data-text] em {
-    font-family: Newsreader;
-}
 [data-link] {
+    cursor: pointer;
     color: var(--global-text-color);
+    text-decoration: none;
+}
+[data-link~=text] {
+    text-decoration: underline;
+    -webkit-text-decoration-color: var(--global-underline-color);
+    text-decoration-color: var(--global-underline-color);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2.5px;
 }
 [data-glass] {
     --blur: 12px;
