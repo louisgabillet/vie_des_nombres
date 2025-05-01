@@ -1,7 +1,10 @@
 :root {
     --global-bg-color: #0B0C10;
     --global-text-color: #fff;
+    --global-text-color-secondary: #a1a1a1;
+
     --global-underline-color: #fff;
+    --global-error-color: #b00101;
     
     --global-max-width: 1024px;
 
@@ -28,7 +31,6 @@ body {
     color: var(--global-text-color);
     overflow-x: hidden;
 }
-
 [data-headline] {
     font-size: var(--font-size-text-2xl);
     font-weight: 600;

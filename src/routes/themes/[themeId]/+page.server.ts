@@ -11,10 +11,13 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
             }
         });
 
-        if (!res.ok) throw new Error(`Failed to fetch theme: ${res.status} ${res.statusText}`);
+        if (!res.ok) throw new Error(`(${res.status}) Failed to fetch theme. ${res.statusText}`);
 
         const data = await res.json();
-        return data;
+
+        return {
+            product: data,
+        }
 
     } catch (err) {
         console.error('Load function error:', err);

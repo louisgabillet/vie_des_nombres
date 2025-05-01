@@ -1,4 +1,5 @@
 import type { Cart, CartProduct } from "$lib/cart/types";
+import type { Product } from "$lib/types";
 
 const carts: Map<Cart['id'], Cart['products']> = new Map();
 
@@ -24,28 +25,35 @@ export const clearCart = (cartId: Cart['id']): Cart => {
     };
 }
 
-export const addToCart = (cartId: Cart['id'], product: CartProduct): Cart => {
+export const addToCart = (cartId: Cart['id'], product: Product): CartProduct => {
     const cart = getCart(cartId);
-    const products = cart.products;
 
-    const existing = products.find(p => p.id === product.id);
-    console.log(cart, product, existing);
+    const products = cart.products;
+    const existing = products.find(p => p.product.id === product.id);
 
     if (existing) {
-        //existing.quantity += product.quantity;
         //existing.quantity += 1;
-        return cart;
+        return existing;
+    }
+    
+    const cartProduct: CartProduct = {
+        id: crypto.randomUUID(),
+        product,
+        quantity: 1,
     }
 
-    cart.products.push(product);
-    return cart;
+    cart.products.push(cartProduct);
+    return cartProduct;
 }
 
-export const removeFromCart = (cartId: Cart['id'], productId: CartProduct['id']): Cart => {
+export const removeFromCart = (cartId: Cart['id'], productId: Product['id']): Cart => {
     const cart: Cart = getCart(cartId);
-    const products: CartProduct[] = cart.products;
+    const index: number = cart.products.findIndex(p => p.product.id === productId);
 
-    const updated: CartProduct[] = products.filter(i => i.id !== productId);
+    if (index === -1) return cart;
+
+    const updated: CartProduct[] = cart.products.filter(i => i.product.id !== productId);
+
     carts.set(cartId, updated);
 
     return {
@@ -54,19 +62,16 @@ export const removeFromCart = (cartId: Cart['id'], productId: CartProduct['id'])
     };
 }
 
-export const decrementFromCart = (cartId: Cart['id'], product: CartProduct): Cart => {
+export const decrementFromCart = (cartId: Cart['id'], productId: Product['id']): Cart => {
     const cart = getCart(cartId);
-    const products = cart.products;
-
-    const existing = products.find(p => p.id === product.id);
+    const existing = cart.products.find(p => p.product.id === productId);
 
     if (existing && existing.quantity > 1) {
-        //existing.quantity -= product.quantity;
         existing.quantity -= 1;
         return cart;
     }
 
-    return removeFromCart(cartId, product.id);
+    return removeFromCart(cartId, productId);
 }
 
 export const createCartSnapshot = (cart: Cart) => {

@@ -1,15 +1,6 @@
-import type { CartProduct, CartStats, Cart as CartType } from "./types";
-import { AsyncQueue } from "$lib/utils/async-queue";
-
-type SendResponse = {
-    success: boolean,
-    cart?: CartType,
-    error?: unknown,
-}
+import type { CartProduct, CartStats } from "./types";
 
 class Cart {
-    private _apiBase: string = '/api/cart';
-    private _queue: AsyncQueue<SendResponse> = new AsyncQueue<SendResponse>;
     id: string = '';
     products: CartProduct[] = $state([]);
 
@@ -33,39 +24,37 @@ class Cart {
         };
     });
 
-    clear = () => {
-        this._queue.enqueue(() => this._send('DELETE', 'clear', null))
-    };
     add = (product: CartProduct) => {
-        this._queue.enqueue(() => this._send('POST', 'add', product));
-    };
-    remove = (product: CartProduct) => {
-        this._queue.enqueue(() => this._send('DELETE', 'remove', product));
-    };
-    decrement = (product: CartProduct) => {
-        this._queue.enqueue(() => this._send('PATCH', 'decrement', product));
-    };
+        const existing: CartProduct | undefined = this.products.find(p => p.id === product.id);
 
-    private _send = async (method: string, endpoint: string, body: CartProduct | null): Promise<SendResponse> => {
-		try {
-			const res = await fetch(`${this._apiBase}/${endpoint}`, {
-				method,
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(body)
-			});
+        if (existing) {
+            //existing.quantity += 1
+            return;
+        }
 
-			if (!res.ok) throw new Error('API error');
+        this.products.push(product);
+    }
 
-			const data: CartType = await res.json();
-            this.products = data.products;
+    remove = (productId: CartProduct['id']) => {
+        const index: number = this.products.findIndex(p => p.product.id === productId);
 
-			return { success: true, cart: data };
+        if (index === -1) return;
 
-		} catch (err) {
-			console.error('Cart error:', err);
-			return { success: false, error: err };
-		}
-	}
+        this.products.splice(index, 1);
+    }
+
+    clear = () => this.products = [];
+
+    decrement = (productId: CartProduct['id']) => {
+        const existing: CartProduct | undefined = this.products.find(p => p.id === productId);
+
+        if (existing && existing.quantity > 1) {
+            existing.quantity -= 1;
+            return;
+        }
+
+        this.remove(productId);
+    }
 }
 
 export default Cart;
