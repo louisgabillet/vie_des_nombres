@@ -20,6 +20,8 @@ const themes = [
 <!--<section class="main__section carousel">
     <Carousel cards={ themes } />
 </section>-->
+<a href="?def=1" data-link="text">Numérologie</a>
+<a href="?def=2" data-link="text">Pythagore</a>
 
 <style>
 .main__section {

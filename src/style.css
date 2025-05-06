@@ -4,9 +4,11 @@
     --global-text-color-secondary: #a1a1a1;
 
     --global-underline-color: #fff;
+    --global-border-color: #7c7c7c33;
     --global-error-color: #b00101;
     
     --global-max-width: 1024px;
+    --global-nav-height: 44px;
 
     --font-system: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-sans: Quicksand, var(--font-system);

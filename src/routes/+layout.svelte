@@ -3,10 +3,12 @@ import "../style.css";
 import { browser } from "$app/environment";
 import { onDestroy, onMount, setContext, type Snippet } from "svelte";
 import { afterNavigate } from "$app/navigation";
-import Sky from "$lib/components/sky.svelte";
 import Cart from "$lib/cart/class.svelte";
-import type { Cart as CartType } from "$lib/cart/types";
 import GlobalNav from "$lib/components/global-nav.svelte";
+import Definition from "$lib/components/definition.svelte";
+import Sky from "$lib/components/sky.svelte";
+import type { Cart as CartType } from "$lib/cart/types";
+	import { page } from "$app/state";
 
 type Props = {
     children: Snippet<[]>,
@@ -19,6 +21,7 @@ type Props = {
 let { children, data }: Props = $props();
 
 const cart = new Cart(data.cart.id, data.cart.products);
+const isDefinitionOpen = $derived(page.url.searchParams.get('def'));
 
 let scrollbar: HTMLDivElement | null = null; 
 
@@ -31,6 +34,7 @@ let scrollbarTrackHeight: number = 0;
 
 let scrollbarThumbHeight: number = $state(0);
 let scrollbarThumbTop: number = $state(0);
+
 
 setContext('cart', cart);
 
@@ -86,9 +90,9 @@ const moveThumb = () => {
 </script>
 
 <GlobalNav themes={ data.themes } />
-<Sky />
 <main class="main">
     {@render children()}
+    <div style="height: 200Vh;"></div>
 </main>
 <div class="global-scrollbar" class:global-scrollbar--hide={ !isScrollbarVisible }>
     <div 
@@ -97,10 +101,12 @@ const moveThumb = () => {
         style:--top="{ scrollbarThumbTop }px"
     ></div>
 </div>
-<div style="height: 200Vh;"></div>
+{#if isDefinitionOpen}
+    <Definition id={ isDefinitionOpen } />
+{/if}
+<Sky />
 
 <style>
-
 .global-scrollbar {
     width: 6px;
     height: 20vh;
@@ -111,6 +117,7 @@ const moveThumb = () => {
     right: 1rem;
     transform: translateY(-50%);
     transition: opacity 400ms ease;
+    z-index: 999;
 }
 .global-scrollbar--hide {
     opacity: 0;
@@ -128,6 +135,8 @@ const moveThumb = () => {
 .main {
     max-width: var(--global-max-width);
     margin: 0 auto;
+    padding: var(--global-nav-height) 22px;
+    inset: 0;
 }
 </style>
 

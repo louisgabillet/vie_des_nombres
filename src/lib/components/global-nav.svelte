@@ -56,28 +56,23 @@ const links: Link[] = [
             },
         ],
     },
-    {
-        id: "2",
-        name: "Définitions",
-        href: "/definitions",
-        submenu: [
-            { 
-                name: "Numérologie",
-                href: "/definitions",
-                text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.", 
-            },
-            { 
-                name: "Pythagore",
-                href: "/definitions",
-                text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.", 
-            },
-            { 
-                name: "Voir toutes les définitions",
-                href: "/definitions",
-                text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.", 
-            },
-        ],
-    },
+    //{
+    //    id: "2",
+    //    name: "Définitions",
+    //    href: "/definitions",
+    //    submenu: [
+    //        { 
+    //            name: "Numérologie",
+    //            href: "?def=1",
+    //            text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.", 
+    //        },
+    //        { 
+    //            name: "Pythagore",
+    //            href: "?def=2",
+    //            text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.", 
+    //        },
+    //    ],
+    //},
 ];
 const actions: Record<string, FormSubmitAction<Product>> = $state({
     remove: {
@@ -201,7 +196,7 @@ const closeSubmenu = () => {
             class="global-nav__submenu"
             class:global-nav__submenu--open={isSubMenuOpen}
         >
-            <div class="global-nav__flyout-container">
+            <div class="global-nav__flyout">
                 <div class="global-nav__flyout-content">
                     {#each links as { id, submenu }, i (id)}
                         {#if submenu.length > 0}
@@ -247,7 +242,7 @@ const closeSubmenu = () => {
                                         <button 
                                             type="submit"
                                             class="global-nav__cart-button"
-                                            aria-label="Remove product from cart"
+                                            aria-label="Retirer du panier"
                                             class:global-nav__cart-button--desactivated={ actions.remove.pending }
                                         >
                                             <svg 
@@ -277,7 +272,7 @@ const closeSubmenu = () => {
                         {:else}
                             <a 
                                 href="/themes"  
-                                class="global-nav__submenu-link global-nav__cart-empty"
+                                class="global-nav__submenu-link global-nav__cart--empty"
                             >
                                 <span class="global-nav__submenu-link-text global-nav__submenu-link-text--overflow">Votre panier est vide</span>
                                 <span class="global-nav__submenu-link-subtext global-nav__submenu-link-subtext--overflow">N'hésitez pas à voir les thèmes disponibles.</span>
@@ -292,11 +287,12 @@ const closeSubmenu = () => {
 
 <style>
 .global-nav {
-    --global-nav-height: 44px;
-    position: relative;
+    width: 100%;
     background-color: var(--global-bg-color);
-    z-index: 999;
-    border-bottom: 1px solid #7c7c7c33;
+    outline: 1px solid var(--global-border-color);
+    position: fixed;
+    top: 0;
+    z-index: 997;
 }
 .global-nav__content {
     width: 100%;
@@ -375,7 +371,7 @@ const closeSubmenu = () => {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.global-nav__flyout-container {
+.global-nav__flyout {
     margin-top: var(--global-nav-height);
     max-height: calc(100% - var(--global-nav-height));
     overflow-y: hidden;
@@ -429,7 +425,7 @@ const closeSubmenu = () => {
     padding-inline: 4px;
     pointer-events: none;
 }
-.global-nav__cart-empty {
+.global-nav__cart--empty {
     position: absolute;
     inset: 0;
     margin: auto;
@@ -439,6 +435,7 @@ const closeSubmenu = () => {
     position: relative;
     display: grid;
     grid-template-columns: 1fr min-content;
+    align-items: center;
     gap: calc(var(--global-nav-height) / 4);
 }
 .global-nav__cart-button {
@@ -448,7 +445,7 @@ const closeSubmenu = () => {
     border: none;
     color: var(--global-text-color);
     cursor: pointer;
-    padding-inline: 10px;
+    padding: 6px;
 }
 .global-nav__cart-button--desactivated {
     opacity: .4;
