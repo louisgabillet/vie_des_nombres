@@ -1,37 +1,27 @@
 <script lang="ts">
-	import Carousel from "$lib/components/carousel.svelte";
-
-const themes = [
-    {
-        id: '1',
-        name: 'Venus',
-    },
-    {
-        id: '2',
-        name: 'Grande Ourse',
-    },
-    {
-        id: '3',
-        name: `3 Belles d'été`,
-    },
-]
+import Carousel from "$lib/components/carousel.svelte";
 </script>
 
-<!--<section class="main__section carousel">
-    <Carousel cards={ themes } />
-</section>-->
-<a href="?def=1" data-link="text">Numérologie</a>
-<a href="?def=2" data-link="text">Pythagore</a>
+<section class="main__section hero-section">
+</section>
+<section class="main__section infos-section">
+</section>
+<section class="main__section process-section">
+    <p>processus de la commande</p>
+</section>
+<section class="main__section question-section">
+    <p>FAQ questions les plus posées</p>
+</section>
 
 <style>
 .main__section {
     width: 100%;
 }
-
-.carousel {
-    position: relative;
-    overflow: hidden;
-    outline: 1px solid white;
+.hero-section,
+.infos-section,
+.process-section,
+.question-section {
+    height: 90vh;
 }
 </style>
 

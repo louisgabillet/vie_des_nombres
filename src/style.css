@@ -33,6 +33,13 @@ body {
     color: var(--global-text-color);
     overflow-x: hidden;
 }
+.app {
+    /*display: contents;*/
+    position: fixed;
+    inset: 0;
+    overflow-y: scroll;
+    margin-right: -15px;
+}
 [data-headline] {
     font-size: var(--font-size-text-2xl);
     font-weight: 600;
@@ -52,14 +59,4 @@ body {
     text-decoration-color: var(--global-underline-color);
     text-decoration-thickness: 1px;
     text-underline-offset: 2.5px;
-}
-[data-glass] {
-    --blur: 12px;
-
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(var(--blur));
-    border-radius: 16px;
-    -webkit-backdrop-filter: blur(var(--blur));
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
 }

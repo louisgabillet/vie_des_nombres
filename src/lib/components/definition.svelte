@@ -13,6 +13,7 @@ let data: Record<string, unknown> | null = $state(null);
 
 let backdrop: HTMLDivElement | null = null;
 let openModalElement: HTMLElement | null = null;
+let openScrollTop: number = 0;
 
 let firstFocusableElement: HTMLElement | null = null;
 let lastFocusableElement: HTMLElement | null = null;
@@ -31,10 +32,14 @@ onMount(() => {
         lastFocusableElement = focusableElements[focusableElements.length - 1];
 
         openModalElement = document.activeElement as HTMLElement;
+        openScrollTop = window.scrollY || document.documentElement.scrollTop;
         firstFocusableElement.focus();
     }
 
-    if (main) main.style.position = 'fixed';
+    if (main) {
+        main.style.position = 'fixed';
+        main.style.top = `-${ openScrollTop }px`;
+    }
     if (backdrop) backdrop.addEventListener('click', close);
     document.addEventListener('keydown', keydown);
 
@@ -42,7 +47,12 @@ onMount(() => {
     fetchDefinition();
 
     return () => {
-        if (main) main.style.removeProperty('position');
+        if (main) {
+            main.style.removeProperty('position');
+            main.style.removeProperty('top');
+
+            //window.scrollTo({ top: openScrollTop, behavior: 'instant' });
+        }
         if (backdrop) backdrop.removeEventListener('click', close);
         document.removeEventListener('keydown', keydown);
 
@@ -92,7 +102,9 @@ const keydown = (e: KeyboardEvent) => {
 }
 const close = () => {
     open = false;
-    setTimeout(() => goto(page.url.pathname), 300);
+    setTimeout(() => {
+        goto(page.url.pathname)
+    }, 300);
 }
 </script>
 
@@ -136,7 +148,6 @@ const close = () => {
     border-radius: 1rem 1rem 0 0;
     padding: 22px;
     outline: 1px solid var(--global-border-color);
-    transition: all 300ms ease;
 }
 .definition-modal__content--hidden {
     opacity: 0;
@@ -156,5 +167,14 @@ const close = () => {
 .definition-modal__backdrop--hidden {
     backdrop-filter: blur(0);
     opacity: 0;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+    .definition-modal__content {
+        transition: opacity 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+    .definition-modal__backdrop {
+        transition: all 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+    }
 }
 </style>
