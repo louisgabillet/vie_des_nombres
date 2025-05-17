@@ -35,19 +35,20 @@ export default `
 
         return f / 0.96875;
     }
-    
+
     float pattern(vec2 p) {
         return fbm(p + fbm(p + fbm(p)));
     }
-    
+
     vec3 colormap(float x) {
         vec3 color;
+        float b1 = 0.5;
 
-        if (x < 0.5) { 
-            float t = x / 0.5;
+        if (x < b1) { 
+            float t = x / b1;
             color = mix(uBgColor, uMainColor, t);
         } else { 
-            float t = (x - 0.5) / 0.5;
+            float t = (x - b1) / b1;
             color = mix(uMainColor, uBgColor, t);
         }
 

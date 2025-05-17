@@ -3,15 +3,21 @@ import { browser } from "$app/environment";
 import { afterNavigate } from "$app/navigation";
 import { onDestroy, onMount } from "svelte";
 
-let scrollbar: HTMLDivElement | null = null; 
+type Props = {
+    parentClass: string,
+}
+
+let { parentClass }: Props = $props();
+
 let app: HTMLDivElement | null = null; 
+let scrollbar: HTMLDivElement | null = null; 
 
 let isScrollbarVisible: boolean = $state(false);
 let hideScrollbarTimeout: ReturnType<typeof setTimeout> | null = null;
 
 let pageHeight: number = 0;
 let clientHeight: number = 0;
-let scrollbarTrackHeight: number = 0;
+let scrollbarTrackHeight: number = $state(0);
 
 let scrollbarThumbHeight: number = $state(0);
 let scrollbarThumbTop: number = $state(0);
@@ -20,7 +26,7 @@ let pointerStartY: number = 0;
 let isPointerDown: boolean = $state(false);
 
 onMount(() => {
-    app = document.querySelector('.app');
+    app = document.querySelector(parentClass);
     scrollbar = document.querySelector('.app__scrollbar');
 
     if (!browser) return;
@@ -35,7 +41,7 @@ onDestroy(() => {
     if (!browser) return;
 
     window.removeEventListener('resize', resize)
-    if (app) app.addEventListener('scroll', scroll)
+    if (app) app.removeEventListener('scroll', scroll)
 })
 afterNavigate(() => updateHeights())
 
@@ -52,7 +58,7 @@ const scroll = () => {
     hideScrollbarTimeout = setTimeout(() => isScrollbarVisible = false, 400);
 }
 
-const updateHeights = () => {
+export const updateHeights = () => {
     pageHeight = app ? app.scrollHeight : 0;
     clientHeight = window.innerHeight;
 
@@ -98,7 +104,8 @@ const pointerup = () => {
 
 <div 
     class="app__scrollbar"
-    class:app__scrollbar--hide={ !isScrollbarVisible && !isPointerDown }
+    class:app__scrollbar--hidden={ !isScrollbarVisible && !isPointerDown }
+    class:app__scrollbar--desactivated={ scrollbarThumbHeight >= scrollbarTrackHeight }
 >
     <div 
         class="app__scrollbar-thumb"
@@ -112,20 +119,22 @@ const pointerup = () => {
 <style>
 .app__scrollbar {
     --scrollbar-width: 6px;
-    --scrollbar-height: 20vh;
     --padding: 10px;
     width: calc(var(--scrollbar-width) + var(--padding) * 2);
-    height: calc(var(--scrollbar-height) + var(--padding) * 2);
+    height: 20vh;
     border-radius: 3px;
     position: fixed;
     top: 50%;
     right: 6px;
     transform: translateY(-50%);
-    z-index: 999;
-    padding: var(--padding);
+    z-index: 996;
+    padding: 0 var(--padding);
 }
-.app__scrollbar--hide {
+.app__scrollbar--hidden {
     opacity: 0;
+}
+.app__scrollbar--desactivated {
+    visibility: hidden;
 }
 .app__scrollbar-track {
     width: 100%;
@@ -144,7 +153,7 @@ const pointerup = () => {
 }
 
 @media screen and (hover: hover) {
-    .app__scrollbar--hide:hover {
+    .app__scrollbar--hidden:hover {
        opacity: 1; 
     }
 }

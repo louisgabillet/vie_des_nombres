@@ -1,5 +1,5 @@
 :root {
-    --global-bg-color: #0B0C10;
+    --global-bg-color: #000;
     --global-text-color: #fff;
     --global-text-color-secondary: #a1a1a1;
 
@@ -10,16 +10,30 @@
     --global-max-width: 1024px;
     --global-nav-height: 44px;
 
-    --font-system: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --font-sans: Quicksand, var(--font-system);
+    --scrollbar-width: 15px;
 
-    --font-size-text-2xl: 30px;
+    --font-system: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    /*--font-sans: Quicksand, var(--font-system);*/
+    /*--font-sans: Poppins, var(--font-system);*/
+    --font-sans: Geist, var(--font-system);
+
+    /*--font-size-text-2xl: 30px;
     --font-size-text-xl: 24px;
     --font-size-text-l: 20px;
     --font-size-text: 16px;
     --font-size-text-s: 14px;
     --font-size-text-xs: 12px;
-    --font-size-text-xxs: 10px;
+    --font-size-text-xxs: 10px;*/
+
+    --font-size-text-4xl: 5.61rem;
+    --font-size-text-3xl: 4.209rem;
+    --font-size-text-2xl: 3.157rem;
+    --font-size-text-xl: 2.369rem;
+    --font-size-text-l: 1.777rem;
+    --font-size-text-m: 1.333rem;
+    --font-size-text: 1rem;
+    --font-size-text-s: 0.75rem;
+    --font-size-text-xs: 0.563rem;
 }
 * {
     margin: 0;
@@ -33,12 +47,15 @@ body {
     color: var(--global-text-color);
     overflow-x: hidden;
 }
+::-webkit-scrollbar {
+    width: 15px;
+}
 .app {
     /*display: contents;*/
     position: fixed;
     inset: 0;
     overflow-y: scroll;
-    margin-right: -15px;
+    margin-right: calc(var(--scrollbar-width) * -1);
 }
 [data-headline] {
     font-size: var(--font-size-text-2xl);
@@ -59,4 +76,13 @@ body {
     text-decoration-color: var(--global-underline-color);
     text-decoration-thickness: 1px;
     text-underline-offset: 2.5px;
+}
+
+@media screen and (max-width: 833px) {
+    :root {
+        --scrollbar-width: 4px;
+    }
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
 }

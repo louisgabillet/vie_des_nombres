@@ -1,1 +1,3 @@
-// place files you want to import through the `$lib` alias in this folder.
+import { MediaQuery } from "svelte/reactivity";
+
+export const LARGE_SCREEN = new MediaQuery('min-width: 833px');
