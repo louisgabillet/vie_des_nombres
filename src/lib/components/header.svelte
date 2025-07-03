@@ -133,7 +133,7 @@ const closeOnNavigation = () => {
                                 class="app__header-nav-link app__header-menu-link"
                                 style:--stagger={ i }
                             >
-                                <span class="app__header-nav-link-text">{ route.label }{ route.path === '/cart' ? ` x${ cartQuantity }` : '' }</span>
+                                <span class="app__header-nav-link-text">{ route.label }{ route.path === '/cart' && cartQuantity > 0 ? ` x${ cartQuantity }` : '' }</span>
                             </a>
                         </li>
                     {/each}
@@ -179,7 +179,7 @@ const closeOnNavigation = () => {
             <li class="app__header-nav-item">
                 <a 
                     href={ ROUTES.CART.path }
-                    class="app__header-nav-link"
+                    class="app__header-nav-link app__header-nav-cart"
                     style:--stagger={ links.header.length }
                     aria-label={ ROUTES.CART.label }
                 >
@@ -267,6 +267,9 @@ const closeOnNavigation = () => {
     transform-origin: 100% 50%;
     transform: scale3d(0, 1, 1);
 }
+.app__header-nav-cart {
+    display: block;
+}
 .app__header-logo-link-svg,
 .app__header-nav-link-svg {
     pointer-events: none;
@@ -301,11 +304,12 @@ const closeOnNavigation = () => {
     display: grid;
     place-content: center;
     position: absolute;
-    bottom: 10px;
+    bottom: 14px;
     z-index: 1;
     border-radius: 1.3em;
     padding-inline: 3px;
-    transform: translateX(25%);
+    transform: translateX(40%);
+    line-height: 1;
 }
 .app__header-menu-trigger {
     right: 0;

@@ -4,9 +4,9 @@ import Carousel from "$lib/components/carousel.svelte";
 
 <section class="main__section hero-section">
     <div class="hero-section__content">
-        <h1 class="hero-section__title hero-section__title--left">En apprendre</h1> 
-        <h1 class="hero-section__title hero-section__title--right">plus sur</h1> 
-        <h1 class="hero-section__title">vous</h1> 
+        <h1 class="hero-section__title hero-section__title--left">comprendre</h1> 
+        <h1 class="hero-section__title hero-section__title--right">pour mieux</h1> 
+        <h1 class="hero-section__title">se connaître</h1> 
     </div>
 </section>
 <section class="main__section infos-section">
@@ -34,12 +34,16 @@ import Carousel from "$lib/components/carousel.svelte";
 .hero-section__content {
     width: min-content;
 
+    margin-bottom: 4rem;
 }
 .hero-section__title {
-    font-size: 70px;
+    font-size: 100px;
     font-weight: 400;
     white-space: nowrap;
     text-align: center;
+
+    font-size: 140px;
+    text-transform: uppercase;
 }
 .hero-section__title--left {
     margin-left: -100px;

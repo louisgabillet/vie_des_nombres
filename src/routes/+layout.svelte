@@ -1,5 +1,6 @@
 <script lang="ts">
 import "../style.css";
+import "../fonts.css";
 import { onMount, setContext, type Snippet } from "svelte";
 import { page } from "$app/state";
 import { onNavigate } from "$app/navigation";
@@ -8,11 +9,12 @@ import Cart from "$lib/cart/class.svelte";
 import Definition from "$lib/components/definition.svelte";
 import type { Cart as CartType } from "$lib/cart/types";
 import ThreeScene from "$lib/components/three-scene.svelte";
-import Nav from "$lib/components/nav.svelte";
+import Header from "$lib/components/header.svelte";
 import Scrollbar from "$lib/components/scrollbar.svelte";
 import { ROUTES } from "$lib/links"
 import GlobalNav from "$lib/components/global-nav.svelte";
 import Sky from "$lib/components/sky.svelte";
+	import Footer from "$lib/components/footer.svelte";
 
 type Props = {
     children: Snippet<[]>,
@@ -92,7 +94,7 @@ const afterAnimation = () => {
     class:app__page--navigating={ isNavigating }
     style:--scroll-top={ `${ scrollTop }px` }
 >
-    <Nav 
+    <Header
         { mainColor }
         { isNavigating }
         { isAnimating }
@@ -100,9 +102,7 @@ const afterAnimation = () => {
     <main class="app__main">
         {@render children()}
     </main>
-    <div class="app__footer">
-        <p>footer</p>
-    </div>
+    <Footer />
     {#if isDefinitionOpen}
         <Definition id={ isDefinitionOpen } />
     {/if}
@@ -138,11 +138,6 @@ const afterAnimation = () => {
 .app__main {
     min-height: 100vh;
     inset: 0;
-}
-.app__footer {
-    width: 100%;
-    height: 250px;
-    outline: 1px solid #7c7c7c33;
 }
 
 @keyframes page-transition-enter {

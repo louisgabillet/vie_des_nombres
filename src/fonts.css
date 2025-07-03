@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'Nohemi';
+    src: url('/fonts/Nohemi/Nohemi-Thin.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 100;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'Nohemi';
+    src: url('/fonts/Nohemi/Nohemi-ExtraLight.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 200;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'Nohemi';
+    src: url('/fonts/Nohemi/Nohemi-Light.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 300;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'Nohemi';
+    src: url('/fonts/Nohemi/Nohemi-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'Nohemi';
+    src: url('/fonts/Nohemi/Nohemi-Medium.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 500;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'Nohemi';
+    src: url('/fonts/Nohemi/Nohemi-SemiBold.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 600;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'Nohemi';
+    src: url('/fonts/Nohemi/Nohemi-Bold.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 700;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'Nohemi';
+    src: url('/fonts/Nohemi/Nohemi-ExtraBold.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 800;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'Nohemi';
+    src: url('/fonts/Nohemi/Nohemi-Black.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 900;
+    text-rendering: optimizeLegibility;
+}

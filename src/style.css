@@ -13,9 +13,7 @@
     --scrollbar-width: 15px;
 
     --font-system: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    /*--font-sans: Quicksand, var(--font-system);*/
-    /*--font-sans: Poppins, var(--font-system);*/
-    --font-sans: Geist, var(--font-system);
+    --font-sans: Nohemi, var(--font-system);
 
     /*--font-size-text-2xl: 30px;
     --font-size-text-xl: 24px;
@@ -45,7 +43,7 @@ body {
     font-family: var(--font-sans);
     background-color: var(--global-bg-color);
     color: var(--global-text-color);
-    overflow-x: hidden;
+    overflow: hidden;
 }
 ::-webkit-scrollbar {
     width: 15px;
@@ -54,7 +52,7 @@ body {
     /*display: contents;*/
     position: fixed;
     inset: 0;
-    overflow-y: scroll;
+    overflow: hidden scroll;
     margin-right: calc(var(--scrollbar-width) * -1);
 }
 [data-headline] {
